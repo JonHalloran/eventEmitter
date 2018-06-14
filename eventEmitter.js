@@ -1,17 +1,16 @@
 class eventEmitter {
   constructor() {
     this.eventHash = {};
+    this.onceHash = {};
   }
 
   addListener(event, cb) {
     if (this.eventHash[event]) {
       this
         .eventHash[event]
-        .push([cb, false]);
+        .push(cb);
     } else {
-      this.eventHash[event] = [
-        [cb, true]
-      ];
+      this.eventHash[event] = [cb];
     }
   }
 
@@ -19,8 +18,16 @@ class eventEmitter {
     const callbacks = this.eventHash[event];
     if (callbacks) {
       const index = callbacks.indexOf(cb);
-      if (cb > 0) {
+      if (index >= 0) {
         callbacks.splice(index, 1);
+      }
+    }
+
+    const singleUse = this.onceHash[event];
+    if (singleUse) {
+      const index = singleUse.indexOf(cb);
+      if (cb > 0) {
+        singleUse.splice(index, 1);
       }
     }
   }
@@ -30,29 +37,29 @@ class eventEmitter {
   }
 
   once(event, cb) {
-    if (this.eventHash[event]) {
+    if (this.onceHash[event]) {
       this
-        .eventHash[event]
-        .push([cb, true]);
+        .onceHash[event]
+        .push(cb);
     } else {
-      this.eventHash[event] = [
-        [cb, true]
-      ];
+      this.onceHash[event] = [cb];
     }
   }
 
   emit(event) {
     const callbacks = this.eventHash[event];
     if (callbacks) {
-      callbacks.forEach((callbackArr, index) => {
-        const callback = callbackArr[0];
+      callbacks.forEach((callback, index) => {
         callback();
-        if (callback[1]) {
-          this
-            .eventHash
-            .splice(index, 1);
-        }
       });
+    }
+
+    const singleUse = this.onceHash[event];
+    if (singleUse) {
+      singleUse.forEach((once) => {
+        once();
+      });
+      this.onceHash[event] = undefined;
     }
   }
 }
