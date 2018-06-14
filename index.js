@@ -5,9 +5,11 @@ class eventEmitter {
 
   addListener = (event, cb) => {
     if (this.eventHash[event]) {
-      this.eventHash[event].push(cb)
+      this.eventHash[event].push([cb, false])
     } else {
-      this.eventHash[event] = [cb]
+      this.eventHash[event] = [
+        [cb, true]
+      ]
     }
   }
 
@@ -25,13 +27,25 @@ class eventEmitter {
     this.eventHash[event] = undefined;
   }
 
-  once()
+  once(event, cb) {
+    if (this.eventHash[event]) {
+      this.eventHash[event].push([cb, true])
+    } else {
+      this.eventHash[event] = [
+        [cb, true]
+      ]
+    }
+  }
 
   emit = (event) => {
     const callbacks = this.eventHash[event];
     if (callbacks) {
-      callbacks.forEach(callback => {
+      callbacks.forEach((callback, index) => {
+        const callback = callbackArr[0]
         callback();
+        if (callback[1]) {
+          this.eventHash.splice(index, 1)
+        }
       });
     }
   }
