@@ -2,10 +2,13 @@
   "name": "jh-event-emitter",
   "version": "1.0.0",
   "description": "Practice event emitter",
-  "main": "index.js",
+  "main": "eventEmitter.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "Jon Halloran",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^23.1.0"
+  }
 }

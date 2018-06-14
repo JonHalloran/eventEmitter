@@ -1,52 +1,60 @@
 class eventEmitter {
   constructor() {
-    this.eventHash = {}
+    this.eventHash = {};
   }
 
-  addListener = (event, cb) => {
+  addListener(event, cb) {
     if (this.eventHash[event]) {
-      this.eventHash[event].push([cb, false])
+      this
+        .eventHash[event]
+        .push([cb, false]);
     } else {
       this.eventHash[event] = [
         [cb, true]
-      ]
+      ];
     }
   }
 
-  removeListener = (event, cb) => {
+  removeListener(event, cb) {
     const callbacks = this.eventHash[event];
     if (callbacks) {
-      const index = callbacks.indexOf(cb)
+      const index = callbacks.indexOf(cb);
       if (cb > 0) {
-        callbacks.splice(index, 1)
+        callbacks.splice(index, 1);
       }
     }
   }
 
-  removeAllListeners = (event) => {
+  removeAllListeners(event) {
     this.eventHash[event] = undefined;
   }
 
   once(event, cb) {
     if (this.eventHash[event]) {
-      this.eventHash[event].push([cb, true])
+      this
+        .eventHash[event]
+        .push([cb, true]);
     } else {
       this.eventHash[event] = [
         [cb, true]
-      ]
+      ];
     }
   }
 
-  emit = (event) => {
+  emit(event) {
     const callbacks = this.eventHash[event];
     if (callbacks) {
-      callbacks.forEach((callback, index) => {
-        const callback = callbackArr[0]
+      callbacks.forEach((callbackArr, index) => {
+        const callback = callbackArr[0];
         callback();
         if (callback[1]) {
-          this.eventHash.splice(index, 1)
+          this
+            .eventHash
+            .splice(index, 1);
         }
       });
     }
   }
 }
+
+module.exports = eventEmitter;
