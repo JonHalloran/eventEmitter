@@ -11,10 +11,21 @@ class eventEmitter {
     }
   }
 
-  removeListener = (event, callback) => {
+  removeListener = (event, cb) => {
     const callbacks = this.eventHash[event];
-
+    if (callbacks) {
+      const index = callbacks.indexOf(cb)
+      if (cb > 0) {
+        callbacks.splice(index, 1)
+      }
+    }
   }
+
+  removeAllListeners = (event) => {
+    this.eventHash[event] = undefined;
+  }
+
+  once()
 
   emit = (event) => {
     const callbacks = this.eventHash[event];
