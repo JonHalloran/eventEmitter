@@ -34,6 +34,7 @@ class eventEmitter {
 
   removeAllListeners(event) {
     this.eventHash[event] = undefined;
+    this.onceHash[event] = undefined;
   }
 
   once(event, cb) {
