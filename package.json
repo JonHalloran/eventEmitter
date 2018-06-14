@@ -1,0 +1,11 @@
+{
+  "name": "jh-event-emitter",
+  "version": "1.0.0",
+  "description": "Practice event emitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jon Halloran",
+  "license": "MIT"
+}
