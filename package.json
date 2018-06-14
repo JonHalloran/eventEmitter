@@ -1,6 +1,6 @@
 {
   "name": "jh-event-emitter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Practice event emitter",
   "main": "eventEmitter.js",
   "scripts": {
@@ -10,5 +10,11 @@
   "license": "MIT",
   "devDependencies": {
     "jest": "^23.1.0"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.0.1",
+    "babel-preset-env": "^1.7.0",
+    "regenerator-runtime": "^0.11.1"
   }
 }

@@ -64,4 +64,4 @@ class eventEmitter {
   }
 }
 
-module.exports = eventEmitter;
+export default eventEmitter;

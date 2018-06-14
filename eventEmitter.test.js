@@ -1,4 +1,4 @@
-const eventEmitter = require('./eventEmitter');
+import eventEmitter from './eventEmitter';
 // const jest = require('jest');
 
 function callback1() {}
